@@ -6,9 +6,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+
 <body>
 	<!--  -->
-	<form action = "formResult.jsp" method = "get">
+	<form action = "formResult2.jsp"  method = "get">
 	이름:
 	<input type="text" name="name">
 	<br /> 나이:
