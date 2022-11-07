@@ -5,6 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+	function zipfinder(){
+		window.open("zipCheck.jsp", "","width=700 height=400");
+	}
+</script>
 </head>
 <body>
 <a href ="list.jsp">전체보기</a> <br/><br/>
@@ -21,8 +26,8 @@
 </tr>
 <tr>
 <td>우편번호 </td>
-<td><input type = "text" name  = "zipcode" size = 5>
-<input type = "button" value  = "검색" ></td>
+<td><input type = "text" name  = "zipcode" id = "zipcode" size = 5>
+<input type = "button" value  = "검색"  onclick = "zipfinder()"></td>
 
 </tr>
 <tr>
