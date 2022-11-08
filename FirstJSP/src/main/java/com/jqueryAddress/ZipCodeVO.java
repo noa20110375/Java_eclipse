@@ -1,53 +1,52 @@
-package com.address;
+package com.jqueryAddress;
 
-public class ZipCode {
+public class ZipCodeVO {
 	private String zipcode;
 	private String sido;
 	private String gugun;
 	private String dong;
 	private String bunji;
 	private int seq;
-	
-	
-	//setter,getter
 	public String getZipcode() {
-		return zipcode;
+		return zipcode == null ? "" : zipcode.trim();
 	}
 	public void setZipcode(String zipcode) {
 		this.zipcode = zipcode;
 	}
 	public String getSido() {
-		return sido;
+		return sido == null ? "" : sido.trim();
 	}
 	public void setSido(String sido) {
-		this.sido = sido == null ? "":sido;
+		this.sido = sido;
 	}
 	public String getGugun() {
-		return gugun = gugun == null ? "":gugun;
+		return gugun == null ? "" : gugun.trim();
 	}
 	public void setGugun(String gugun) {
 		this.gugun = gugun;
 	}
 	public String getDong() {
-		return dong;
+		//널값 제거
+		//window > preference >java> templete > code> getterbody
+		//return ${field} ==null? "" : ${field}.trim() ; 설정 해주면 됨...하
+		return dong == null ? "" : dong.trim();
 	}
 	public void setDong(String dong) {
-		this.dong = dong == null ? "":dong;
+		this.dong = dong;
 	}
 	public String getBunji() {
-		//널값 제거
-		//삼항연산자 확인.
-		// n = (a==2)? 1:2;
-		//trim앞뒤 문자공백 제거
-		return bunji == null ? "" :bunji.trim();
+		return bunji == null ? "" : bunji.trim();
 	}
 	public void setBunji(String bunji) {
 		this.bunji = bunji;
 	}
 	public int getSeq() {
-		return seq;
+		return seq ;
 	}
 	public void setSeq(int seq) {
 		this.seq = seq;
 	}
+	
+	//getter,setter
+	
 }
