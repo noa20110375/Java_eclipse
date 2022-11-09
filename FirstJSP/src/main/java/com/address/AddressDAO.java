@@ -40,7 +40,8 @@ public class AddressDAO {
 		PreparedStatement ps = null;
 		try {
 			con = getConnection();
-			String sql = "insert into address values(address_seq.nextval,?,?,?,?)";
+			String sql =  "insert into address(num,name, zipcode, addr, tel) "
+					+ " values(address_seq.nextval,?,?,?,?)";
 			ps = con.prepareStatement(sql);
 			ps.setString(1, ad.getName());
 			ps.setString(2, ad.getZipcode());
@@ -56,17 +57,34 @@ public class AddressDAO {
 				closeConnection(con,ps,null,null);
 		}
 	}
-	//전체 보기 
-	public ArrayList<Address> addressList() {
+	//전체 보기 (검색 포함)
+	public ArrayList<Address> addressList(String field, String word) {
 		
 		Connection con = null;
 		Statement st = null;
 		ResultSet rs = null;
 		ArrayList<Address> arr = new ArrayList<Address>();
-		
+		String sql ="";
 		try {
 			con = getConnection();
-			String sql = "select * from address ";
+			if(word.equals("")){//검색 아님
+				//String클래스에서는 equals()를 재정의해 내용을 비교
+				//word = ""  워드가 공백이면 
+				 sql = "select * from address order by num desc";
+				
+				
+				
+			}else {//검색
+				
+				//field ,word는 쌍따옴 표 안에서는 사용 할 수 없기에 ...."공백 + 컬럼+"해서 연결?
+				
+				sql = "select * from address where "+ field+" like '%"+word+"%'";
+		
+			}
+			//sql문 출력 콘솔
+			System.out.println(sql);
+			
+		
 			st = con.createStatement();
 		  rs= st.executeQuery(sql);
 		  while(rs.next()) {
@@ -88,20 +106,28 @@ public class AddressDAO {
 		}
 		return arr;
 	}
-	//카운트
-	public int getCount() {
+	//카운트 
+	//field word 매개 변수로 넣어줌 
+	public int getCount(String field, String word) {
 		Connection  con= null;
 		Statement st = null;
 		ResultSet rs = null;
-		
+		String sql = "";
 		int count = 0;
 		
 
 	//return 은 마지막에 값을 돌려줘야하니...하하하....
 	try {
 		con = getConnection();
-		String sql = "select count(*) from address order by num desc";
-		st= con.createStatement();
+		if(word.equals("")) {//검색 아님
+			
+		 sql = "select count(*) from address order by num desc";
+		
+		}else {//검색
+			
+			sql = "select count(*) from address where "+ field+" like '%"+word+"%'";
+		}
+		 st= con.createStatement();
 		rs= st.executeQuery(sql);
 		if(rs.next()) {
 			count = rs.getInt(1);

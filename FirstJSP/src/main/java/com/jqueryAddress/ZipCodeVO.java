@@ -28,7 +28,7 @@ public class ZipCodeVO {
 	public String getDong() {
 		//널값 제거
 		//window > preference >java> templete > code> getterbody
-		//return ${field} ==null? "" : ${field}.trim() ; 설정 해주면 됨...하
+		//return ${field} ==null? "" : ${field}.trim() ; 설정 해주면 됨...하                                                             
 		return dong == null ? "" : dong.trim();
 	}
 	public void setDong(String dong) {
