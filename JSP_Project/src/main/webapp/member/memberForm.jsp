@@ -9,14 +9,17 @@
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
+
 </head>
 <body>
 <!-- mt-? 여백 넣기 -->
 <div class="container mt-3">
   <h2>회원가입</h2>
-  <form action="memberInsertPro.jsp" method ="post">
+  <form action="memberInsertPro.jsp" method ="post"  id = "frm">
     <div class="form-group">
       <label for="name">Name:</label>
+      <!--  문자열에 따옴표 -->
       <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
     </div>
     
@@ -26,11 +29,11 @@
       <div class="row">
     <div class="col">
         <label for="userid">UserID:</label>
-      <input type="text" class="form-control" id="userid" placeholder="Enter userID" name="userid">
+      <input type="text" class="form-control" id="userid" placeholder="Enter userID" name="userid" readonly = "readonly">
     </div>
     <!-- sself-end로 버튼 정렬 -->
     <div class="col align-self-end">
-      <button type = "button" class = "btn  btn-primary">중복확인</button>
+      <button type = "button" class = "btn  btn-primary" id = "idCheckBtn">중복확인</button>
     </div>
   </div>
     
@@ -71,7 +74,7 @@
 </div><br/><br/>
 
     <div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="button" class="btn btn-primary" id = "sendBtn">Submit</button>
   </div>
   </form>
 </div>

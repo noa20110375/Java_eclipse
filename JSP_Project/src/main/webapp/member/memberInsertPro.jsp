@@ -3,11 +3,7 @@
 <%@page import="com.member.dto.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+
 <%
 request.setCharacterEncoding("utf-8");
 %>
@@ -17,10 +13,5 @@ request.setCharacterEncoding("utf-8");
 <%
 MemberDAO dao = MemberDAOImpl.getInstance();
 dao.memberInsert(member);
-
+response.sendRedirect("memberList.jsp");
 %>
-</head>
-<body>
-
-</body>
-</html>
