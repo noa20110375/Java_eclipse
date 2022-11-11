@@ -6,20 +6,24 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.js" ></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 
-
+<script src = "../js/member.js"></script>
 </head>
 <body>
 <!-- mt-? 여백 넣기 -->
 <div class="container mt-3">
-  <h2>회원가입</h2>
+  
+  <div align = "right">
+<a href ="loginForm.jsp">로그인</a>
+</div>
+<h2>회원가입</h2>
   <form action="memberInsertPro.jsp" method ="post"  id = "frm">
     <div class="form-group">
       <label for="name">Name:</label>
-      <!--  문자열에 따옴표 -->
+      
       <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
     </div>
     
@@ -31,7 +35,7 @@
         <label for="userid">UserID:</label>
       <input type="text" class="form-control" id="userid" placeholder="Enter userID" name="userid" readonly = "readonly">
     </div>
-    <!-- sself-end로 버튼 정렬 -->
+    
     <div class="col align-self-end">
       <button type = "button" class = "btn  btn-primary" id = "idCheckBtn">중복확인</button>
     </div>

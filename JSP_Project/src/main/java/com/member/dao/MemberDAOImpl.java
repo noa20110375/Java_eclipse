@@ -53,7 +53,7 @@ public class MemberDAOImpl  implements MemberDAO{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
-			closeConnection(con,ps,null,null);
+			
 		}
 	}
 
@@ -95,8 +95,27 @@ public class MemberDAOImpl  implements MemberDAO{
 
 	@Override
 	public void memberUpdate(MemberDTO member) {
-		// TODO Auto-generated method stub
-		
+		Connection con = null;
+		PreparedStatement  ps = null;
+	
+		try {
+			con = getConnection();
+			String sql="update   memberdb set name=?,  pwd=?,"
+					+ " admin=?, email=? ,phone =? where userid=?";
+			ps = con.prepareStatement(sql);
+			ps.setString(1, member.getName());
+			ps.setString(2, member.getPwd());
+			ps.setInt(3, member.getAdmin());
+			ps.setString(4, member.getEmail());
+			ps.setString(5, member.getPhone());
+			ps.setString(6, member.getUserid());
+			ps.executeUpdate();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			closeConnection(con, ps, null, null);
+		}
 	}
 
 	@Override
@@ -130,10 +149,10 @@ public class MemberDAOImpl  implements MemberDAO{
 		String  sql = "select * from memberdb where userid = '"+userid+"'";
 		st = con.createStatement();
 		rs = st.executeQuery(sql);
-		 mb = new MemberDTO();
+		 
 	
 	if(rs.next()) {
-		
+		mb = new MemberDTO();
 		//여기 안에서 선언하면 if 안에서만 사용 가능함
 		//그러니 외부에 선언을 해줘야함
 		 
@@ -186,31 +205,38 @@ public class MemberDAOImpl  implements MemberDAO{
 
 	@Override
 	public int loginCheck(String userid, String pwd) {
-		Connection con =null;s
+		Connection con =null;
 		Statement st = null;
 		ResultSet rs = null;
-		int check =  0;
+		int flag=  -1;//회원 아님(-1), 회원 맞음(0) ,비번 오류(2) 
+				
 		try {
 			con = getConnection();
-			
-			String sql = "select *from memberdb where userid=  '"+userid+ "'";
-		
+			String sql ="select pwd,admin from memberdb where userid ='"+userid+"'";
+			System.out.println(sql);
 			st = con.createStatement();
 			rs = st.executeQuery(sql);
+		
+		
 			
+			if(rs.next()) {//회원이거나 비번오류
+				
 			
-			if(rs.next()) {
-				check = rs.getInt(1);
-				check = rs.getInt(2);
-				check = rs.getInt(3);
+				if(rs.getString("pwd").equals(pwd)) {//회원 조건(입력한 비번이 맞는지 검사)
+					flag= rs.getInt("admin");
+					
+				
+				}else {//회원이지만 비번 오류
+				flag = 2;
 			}
-		} catch (Exception e) {
+		}
+		}catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			closeConnection(con, null, st, rs);
 		}
-	return 0 ;
+	return flag ;
 }
 
 	@Override

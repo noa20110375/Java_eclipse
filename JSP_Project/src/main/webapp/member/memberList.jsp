@@ -10,7 +10,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+   <script src="https://code.jquery.com/jquery-3.6.1.js" ></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.1.js" ></script>
@@ -20,11 +20,12 @@
 
 <%
 request.setCharacterEncoding("utf-8");
-
-
+//String  = Object  (String) 캐스팅
+String sid =(String)session.getAttribute("sUserid");
 
 MemberDAO  dao = MemberDAOImpl.getInstance();
 ArrayList<MemberDTO>arr = dao.memberList();
+MemberDTO member = dao.findById(sid);
 int count = dao.getCount();
 
 %>
@@ -37,12 +38,12 @@ int count = dao.getCount();
 
 
 <body>
-<div align ="right">
-<a href ="memberInsertPro.jsp">추가하기</a>
-/<span onclick = "location.href = 'memberList.jsp'">전체보기</span>
-<br/>
+<div align = "right">
+<a href="memberView.jsp"><%= sid %>님 반값습니다.</a>
+ / <a href ="logout.jsp">로그아웃 </a>
+
 </div>
-<br/>
+
 <div class="container mt-5">
 <h3>회원리스트(<span id   ="cntSpan"><%= count %></span>)</h3>
 
