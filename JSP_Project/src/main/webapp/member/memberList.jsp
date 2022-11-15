@@ -41,6 +41,7 @@ int count = dao.getCount();
 <div align = "right">
 <a href="memberView.jsp"><%= sid %>님 반값습니다.</a>
  / <a href ="logout.jsp">로그아웃 </a>
+ /<a href = "/JSP_Project/board/list.jsp"> 게시판으로</a>
 
 </div>
 

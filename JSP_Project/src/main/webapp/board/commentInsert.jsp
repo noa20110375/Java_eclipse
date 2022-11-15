@@ -6,11 +6,18 @@
 request.setCharacterEncoding("utf-8");
 String msg =request.getParameter("msg");
 int bnum =Integer.parseInt(request.getParameter("bnum"));
+String sid = (String)session.getAttribute("sUserid");
+if(sid ==null){//로그인 안됨
+	out.println("1");
+}else{//로그인 됨.
+	
+
 
 BoardDAO dao = BoardDAO.getInstance();
 CommentDTO comment = new CommentDTO();
 comment.setMsg(msg);
 comment.setBnum(bnum);
-comment.setUserid("aa");
+comment.setUserid(sid);
 dao.commentInsert(comment);
+}
 %>

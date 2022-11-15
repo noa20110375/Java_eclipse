@@ -112,19 +112,19 @@ public class BoardDAO {
 			con = getConnection();
 			StringBuilder sb =  new StringBuilder();
 				if(word.equals("")) {//검색 아님
-					sb.append("select * from (  ");
-					sb.append("select rownum rn,aa.*from(");
-					sb.append(" select *from board order by ref desc, re_step asc)aa");
-					sb.append(" where rownum <=?");
+					sb.append("select * from ( ");
+					sb.append(" select rownum rn, aa.* from(");
+					sb.append(" select * from board order by ref desc, re_step asc) aa");
+					sb.append(" where rownum <= ?");
 					sb.append(") where rn>=?");
 					
 				}else {//검색 
-					sb.append("select * from (  ");
-					sb.append("select rownum rn,aa.*from(");
+					sb.append("select * from ( ");
+					sb.append(" select rownum rn, aa.* from(");
 					sb.append("select * from board where ");
-					sb.append( field +" like '%"+word+"%'");
-					sb.append("order by ref desc, re_step asc)aa");
-					sb.append(" where rownum <=?");
+					sb.append( field  +" like '%"+word+"%'");
+					sb.append(" order by ref desc, re_step asc)aa");
+					sb.append(" where rownum <= ?");
 					sb.append(") where rn>=?");
 				}
 				System.out.println(sb.toString());
@@ -316,12 +316,68 @@ rs= ps.executeQuery();
 			closeConnection(con, ps, ps, null);
 		}
 	}
+	//comment List
+	public ArrayList<CommentDTO> commentList(int bnum) {
+		Connection con = null;
+		Statement st = null;
+		ResultSet rs = null;
+		ArrayList<CommentDTO> carr = new ArrayList<CommentDTO>();
+		
+		try {
+			con= getConnection();
+		st= con.createStatement();
+		//bnum은 변수이기에 따옴표 들어가면 안됨.
+		String sql = "select  * from commentboard  where bnum = "+bnum+" order by cnum desc";
+			rs = st.executeQuery(sql);
+			while(rs.next()){
+				CommentDTO comment = new CommentDTO();
+				comment.setBnum(rs.getInt("bnum"));
+				comment.setCnum(rs.getInt("cnum"));
+				comment.setMsg(rs.getString("msg"));
+				comment.setRegdate(rs.getString("regdate"));
+				comment.setUserid(rs.getString("userid"));
+				carr.add(comment);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			closeConnection(con, null, st, rs);
+		}
+		return carr;
+	}
+	/// comment count 
 	
-	
+	public int  getCommentCount(int bnum) {
+		Connection con = null;
+		Statement st = null;
+		ResultSet rs = null;
+		String sql = "";
+		
+		int count =0;
+		try {
+			con = getConnection();
+			
+			sql = "select count(*) from commentboard where bnum="+bnum;
+			st = con.createStatement();
+			rs = st.executeQuery(sql);
+			if (rs.next()) {
+				count = rs.getInt(1);
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+		closeConnection(con, null, st, rs);
+		}
+		
+		return count;
+	}
 	
 	
 	private void closeConnection(Connection con, PreparedStatement ps, Statement st, ResultSet rs) {
 		try {
+			
 			if (con != null)
 				con.close();
 			if (ps != null)
